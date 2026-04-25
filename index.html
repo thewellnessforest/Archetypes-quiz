@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sovereign System | Archetype Assessment</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <style>
+        :root { --earth: #0d160f; --gold: #c2a878; --cream: #fefae0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--earth); color: var(--cream); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        .container { width: 92%; max-width: 700px; border: 1px solid rgba(194,168,120,0.2); padding: 60px 40px; background: rgba(255,255,255,0.01); backdrop-filter: blur(20px); position: relative; }
+        .quiz-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 6px; color: var(--gold); text-align: center; display: block; margin-bottom: 40px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 30px; text-align: center; font-weight: 400; line-height: 1.5; color: var(--gold); }
+        .quiz-step { display: none; }
+        .quiz-step.active { display: block; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .option-btn { display: block; width: 100%; padding: 18px 25px; margin-bottom: 12px; background: transparent; border: 1px solid rgba(194, 168, 120, 0.3); color: var(--cream); cursor: pointer; text-align: left; font-size: 0.95rem; transition: 0.3s; line-height: 1.4; }
+        .option-btn:hover { background: rgba(194, 168, 120, 0.08); border-color: var(--gold); padding-left: 30px; }
+        input[type="email"] { width: 100%; padding: 20px; background: transparent; border: 1px solid var(--gold); color: white; margin-bottom: 25px; text-align: center; font-size: 1.1rem; }
+        .action-btn { background: var(--gold); color: var(--earth); padding: 20px; border: none; font-weight: 700; text-transform: uppercase; cursor: pointer; width: 100%; letter-spacing: 3px; font-size: 1rem; }
+        .result-header { font-family: 'Pinyon Script', cursive; font-size: 3.5rem; color: var(--gold); text-align: center; margin-bottom: 20px; }
+        .insight-box { margin-top: 30px; border-top: 1px solid rgba(194,168,120,0.3); padding-top: 30px; line-height: 1.8; font-size: 1.05rem; }
+        .progress { text-align: center; font-size: 0.7rem; letter-spacing: 2px; margin-top: 20px; opacity: 0.5; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <span class="quiz-title">Archetype Assessment</span>
+    <div id="quiz-container">
+        
+        <div class="quiz-step active" id="step1">
+            <h2>When you spot a blatant lie or a hidden dynamic in a room, how do you respond?</h2>
+            <button class="option-btn" onclick="next('seer')">I see it instantly, but I keep quiet because I've been attacked for speaking up before.</button>
+            <button class="option-btn" onclick="next('caregiver')">I ignore it or sugar-coat it to keep the peace and ensure everyone is okay.</button>
+            <button class="option-btn" onclick="next('sage')">I stay silent and start looking for evidence or data to prove I'm not "crazy."</button>
+            <button class="option-btn" onclick="next('outlaw')">I call it out immediately, often in a way that feels confrontational or rebellious.</button>
+            <p class="progress">1 / 5</p>
+        </div>
+
+        <div class="quiz-step" id="step2">
+            <h2>How do you measure your value at the end of a long day?</h2>
+            <button class="option-btn" onclick="next('caregiver')">By how much I've helped others or "fixed" their problems.</button>
+            <button class="option-btn" onclick="next('outlaw')">By how much I've pushed back against systems that don't make sense.</button>
+            <button class="option-btn" onclick="next('seer')">By how accurately I was able to navigate the day's hidden patterns.</button>
+            <button class="option-btn" onclick="next('sage')">By how much I've learned or understood about the world around me.</button>
+            <p class="progress">2 /
