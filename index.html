@@ -10,80 +10,110 @@
         :root { --earth: #0d160f; --gold: #c2a878; --cream: #fefae0; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Montserrat', sans-serif; background-color: var(--earth); color: var(--cream); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-        .container { width: 92%; max-width: 700px; border: 1px solid rgba(194,168,120,0.2); padding: 60px 40px; background: rgba(255,255,255,0.01); backdrop-filter: blur(20px); position: relative; }
-        .quiz-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 6px; color: var(--gold); text-align: center; display: block; margin-bottom: 40px; }
-        h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 30px; text-align: center; font-weight: 400; line-height: 1.5; color: var(--gold); }
+        
+        .container { width: 92%; max-width: 700px; border: 1px solid rgba(194,168,120,0.2); padding: 50px 30px; background: rgba(255,255,255,0.01); backdrop-filter: blur(20px); position: relative; }
+        
+        /* FIX: Adjusted font size and spacing to keep SOVEREIGN on one line */
+        .header-title { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.8rem; 
+            letter-spacing: 4px; 
+            color: var(--gold); 
+            text-align: center; 
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .quiz-subtitle { 
+            font-size: 0.65rem; 
+            text-transform: uppercase; 
+            letter-spacing: 5px; 
+            color: var(--gold); 
+            text-align: center; 
+            display: block; 
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 30px; text-align: center; font-weight: 400; line-height: 1.4; color: var(--cream); }
+        
         .quiz-step { display: none; }
         .quiz-step.active { display: block; animation: fadeIn 0.5s ease forwards; }
+        
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
         .option-btn { display: block; width: 100%; padding: 18px 25px; margin-bottom: 12px; background: transparent; border: 1px solid rgba(194, 168, 120, 0.3); color: var(--cream); cursor: pointer; text-align: left; font-size: 0.95rem; transition: 0.3s; line-height: 1.4; }
         .option-btn:hover { background: rgba(194, 168, 120, 0.1); border-color: var(--gold); padding-left: 30px; }
+        
         input[type="email"] { width: 100%; padding: 20px; background: transparent; border: 1px solid var(--gold); color: white; margin-bottom: 25px; text-align: center; font-size: 1.1rem; border-radius: 0; outline: none; }
         .action-btn { background: var(--gold); color: var(--earth); padding: 20px; border: none; font-weight: 700; text-transform: uppercase; cursor: pointer; width: 100%; letter-spacing: 3px; font-size: 1rem; }
-        .progress { text-align: center; font-size: 0.7rem; letter-spacing: 2px; margin-top: 25px; opacity: 0.4; }
+        
+        .progress { text-align: center; font-size: 0.6rem; letter-spacing: 2px; margin-top: 25px; opacity: 0.4; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <span class="quiz-title">Archetype Assessment</span>
+    <span class="header-title">The Sovereign System</span>
+    <span class="quiz-subtitle">Archetype Assessment</span>
+
     <div id="quiz-container">
-        
         <div class="quiz-step active" id="step1">
-            <h2>When you notice a hidden tension or a lie in a conversation, what is your first instinct?</h2>
-            <button type="button" class="option-btn" onclick="moveForward('seer')">I see it instantly, but I stay quiet because speaking up usually makes people defensive toward me.</button>
-            <button type="button" class="option-btn" onclick="moveForward('caregiver')">I ignore it and try to change the subject to keep everyone comfortable.</button>
-            <button type="button" class="option-btn" onclick="moveForward('sage')">I start questioning if I'm just imagining it and look for "proof" before I trust my gut.</button>
-            <button type="button" class="option-btn" onclick="moveForward('outlaw')">I call it out immediately—I can't stand when things feel fake or hidden.</button>
+            <h2>When you notice someone is being dishonest or hiding the truth, what is your instinct?</h2>
+            <button type="button" class="option-btn" onclick="moveForward('seer')">I see it instantly, but I stay quiet because speaking up usually makes me the target.</button>
+            <button type="button" class="option-btn" onclick="moveForward('caregiver')">I ignore it and try to keep everyone comfortable so there’s no conflict.</button>
+            <button type="button" class="option-btn" onclick="moveForward('sage')">I doubt myself and start looking for "proof" before I trust what I saw.</button>
+            <button type="button" class="option-btn" onclick="moveForward('outlaw')">I call it out immediately—I can't stand faking things just to be nice.</button>
             <p class="progress">Step 1 / 5</p>
         </div>
 
         <div class="quiz-step" id="step2">
-            <h2>When you feel completely drained, what is usually the main reason?</h2>
-            <button type="button" class="option-btn" onclick="moveForward('caregiver')">I've spent the whole day fixing other people's problems or managing their moods.</button>
-            <button type="button" class="option-btn" onclick="moveForward('outlaw')">I'm exhausted from fighting against people who refuse to listen or change.</button>
+            <h2>What is the main reason you feel drained at the end of the day?</h2>
+            <button type="button" class="option-btn" onclick="moveForward('caregiver')">I’ve spent the whole day fixing other people’s problems or managing their moods.</button>
+            <button type="button" class="option-btn" onclick="moveForward('outlaw')">I’m exhausted from fighting against people who refuse to see sense.</button>
             <button type="button" class="option-btn" onclick="moveForward('seer')">I feel isolated because I see things others don't, and it makes me feel "too much."</button>
-            <button type="button" class="option-btn" onclick="moveForward('sage')">I've been over-thinking and analyzing a situation until I'm mentally paralyzed.</button>
+            <button type="button" class="option-btn" onclick="moveForward('sage')">I’ve been stuck in my head over-analyzing everything until I’m paralyzed.</button>
             <p class="progress">Step 2 / 5</p>
         </div>
 
         <div class="quiz-step" id="step3">
-            <h2>You get a strong "hit" or intuition about a big life choice. How do you respond?</h2>
-            <button type="button" class="option-btn" onclick="moveForward('sage')">I wait to see what experts or research says before I actually believe my intuition.</button>
-            <button type="button" class="option-btn" onclick="moveForward('caregiver')">I check in with friends or family to make sure they're okay with my decision first.</button>
+            <h2>You have a strong gut feeling about a choice. How do you handle it?</h2>
+            <button type="button" class="option-btn" onclick="moveForward('sage')">I wait to see what the "experts" or the data says before I trust it.</button>
+            <button type="button" class="option-btn" onclick="moveForward('caregiver')">I check in with everyone else to make sure they’re okay with my choice first.</button>
             <button type="button" class="option-btn" onclick="moveForward('seer')">I know I'm right, but I hesitate because I'm tired of having to explain myself.</button>
-            <button type="button" class="option-btn" onclick="moveForward('outlaw')">I act on it immediately—I don't need anyone to tell me what to do.</button>
+            <button type="button" class="option-btn" onclick="moveForward('outlaw')">I act on it immediately—I don't need anyone to give me permission.</button>
             <p class="progress">Step 3 / 5</p>
         </div>
 
         <div class="quiz-step" id="step4">
             <h2>When you feel "stuck," what is usually happening?</h2>
-            <button type="button" class="option-btn" onclick="moveForward('seer')">I feel like a target for other people's drama and negative energy.</button>
-            <button type="button" class="option-btn" onclick="moveForward('caregiver')">I've over-extended myself trying to keep everyone happy at my own expense.</button>
-            <button type="button" class="option-btn" onclick="moveForward('sage')">I'm stuck in a loop of over-analyzing everything until I can't take any action.</button>
-            <button type="button" class="option-btn" onclick="moveForward('outlaw')">I'm fighting a system or a person that just won't budge, and I feel powerless.</button>
+            <button type="button" class="option-btn" onclick="moveForward('seer')">I feel like I'm a magnet for other people's drama and negative energy.</button>
+            <button type="button" class="option-btn" onclick="moveForward('caregiver')">I’ve over-extended myself trying to keep everyone happy at my own expense.</button>
+            <button type="button" class="option-btn" onclick="moveForward('sage')">I'm stuck in a loop of second-guessing myself and over-thinking the details.</button>
+            <button type="button" class="option-btn" onclick="moveForward('outlaw')">I'm fighting a system or a person that just won't budge.</button>
             <p class="progress">Step 4 / 5</p>
         </div>
 
         <div class="quiz-step" id="step5">
-            <h2>What is the one thing you want more than anything right now?</h2>
-            <button type="button" class="option-btn" onclick="moveForward('seer')">To be finally understood and respected for what I see and know.</button>
-            <button type="button" class="option-btn" onclick="moveForward('sage')">To have total mental clarity and stop the constant second-guessing.</button>
-            <button type="button" class="option-btn" onclick="moveForward('caregiver')">To stop feeling like I'm responsible for everyone else's happiness.</button>
-            <button type="button" class="option-btn" onclick="moveForward('outlaw')">To have the freedom to build my life my way without being judged.</button>
+            <h2>If you could change one thing right now, it would be:</h2>
+            <button type="button" class="option-btn" onclick="moveForward('seer')">To be finally understood and respected for what I see.</button>
+            <button type="button" class="option-btn" onclick="moveForward('sage')">To have total mental clarity and stop the constant doubt.</button>
+            <button type="button" class="option-btn" onclick="moveForward('caregiver')">To stop feeling responsible for everyone else's happiness.</button>
+            <button type="button" class="option-btn" onclick="moveForward('outlaw')">To have the freedom to do things my way without judgment.</button>
             <p class="progress">Step 5 / 5</p>
         </div>
 
         <div class="quiz-step" id="step_email">
             <h2>Where should we send your Sovereign Roadmap?</h2>
             <input type="email" id="userEmail" placeholder="yourname@email.com">
-            <button type="button" class="action-btn" id="submitBtn" onclick="finalProcess()">Reveal My Results</button>
+            <button type="button" class="action-btn" id="submitBtn" onclick="finalProcess()">Reveal My Archetype</button>
         </div>
 
         <div class="quiz-step" id="results">
             <div id="res_content" style="text-align:center;">
-                <div class="result-header" id="res_name"></div>
-                <div class="insight-box" id="res_insight"></div>
+                <div class="result-header" id="res_name" style="font-family: 'Pinyon Script', cursive; font-size: 3rem; color: var(--gold);"></div>
+                <div id="res_insight" style="margin-top: 30px; border-top: 1px solid rgba(194,168,120,0.3); padding-top: 20px; line-height: 1.8;"></div>
             </div>
         </div>
     </div>
@@ -107,35 +137,18 @@
     };
 
     const library = {
-        seer: {
-            name: "The Seer",
-            insight: "You notice the underlying truth before anyone else, but you've likely been silenced or told you're 'too dramatic' for it. You are tired of being the only one who sees the real pattern in the room.",
-            step: "Stop trying to prove yourself to people who are determined not to see. Your accuracy is your power."
-        },
-        caregiver: {
-            name: "The Caregiver",
-            insight: "You've been taught that your value is tied to how much you can fix or help others. You often sacrifice your own truth just to keep the peace and keep everyone happy.",
-            step: "Practice witnessing a problem without offering to fix it. Notice the freedom in letting others own their own choices."
-        },
-        sage: {
-            name: "The Sage",
-            insight: "You are brilliant at gathering information, but you often use it to avoid trusting your own gut. You find yourself waiting for 'proof' before you allow yourself to be right.",
-            step: "Try trusting your first hit today without Googling a single thing. Your internal accuracy is faster than any data."
-        },
-        outlaw: {
-            name: "The Outlaw",
-            insight: "You see the flaws in the system and you want to challenge them, but you often feel like you're fighting an uphill battle that leaves you drained and unheard.",
-            step: "Stop fighting against their rules and start creating your own. Sovereignty isn't rebellion; it's total independence."
-        }
+        seer: { name: "The Seer", insight: "You see the hidden truth before anyone else, but you've likely been silenced or labeled 'dramatic' for it.", step: "Stop trying to prove yourself to people who are determined not to see. Your accuracy is your power." },
+        caregiver: { name: "The Caregiver", insight: "You've been taught that your value is tied to how much you can fix or help others. You sacrifice your own truth to keep the peace.", step: "Practice witnessing a problem without offering to fix it. Notice the freedom in letting others own their choices." },
+        sage: { name: "The Sage", insight: "You are brilliant at gathering information, but you often use it to avoid trusting your own gut.", step: "Try trusting your first hit today without Googling a single thing. Your internal accuracy is faster than any data." },
+        outlaw: { name: "The Outlaw", insight: "You see the flaws in the system and you want to challenge them, but you often feel like you're fighting an uphill battle.", step: "Stop fighting their rules and start creating your own. Sovereignty isn't rebellion; it's total independence." }
     };
 
     window.finalProcess = function() {
         const email = document.getElementById('userEmail').value;
-        if(!email.includes('@')) { alert("Please provide a valid email."); return; }
-
+        if(!email.includes('@')) { alert("Valid email required."); return; }
+        
         let winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
         let data = library[winner];
-
         document.getElementById('submitBtn').innerText = "Tuning Frequency...";
 
         emailjs.send("service_0djjn9q", "template_mehd9na", {
@@ -148,7 +161,7 @@
             document.getElementById('step_email').classList.remove('active');
             document.getElementById('results').classList.add('active');
             document.getElementById('res_name').innerText = data.name;
-            document.getElementById('res_insight').innerHTML = `<p>${data.insight}</p><br><strong>Your First Step:</strong><p>${data.step}</p>`;
+            document.getElementById('res_insight').innerHTML = `<p>${data.insight}</p><br><strong>Next Step:</strong><p>${data.step}</p>`;
         });
     };
 </script>
