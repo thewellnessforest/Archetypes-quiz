@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sovereign Archetypes Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --earth-deep: #0d160f;
+            --forest: #1b2e21;
+            --gold: #c2a878;
+            --cream: #fefae0;
+            --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--earth-deep);
+            color: var(--cream);
+            line-height: 1.8;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(194, 168, 120, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(58, 90, 64, 0.12) 0%, transparent 40%);
+        }
+
+        .vertical-brand {
+            position: fixed;
+            height: 100vh;
+            width: 60px;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Pinyon Script', cursive;
+            font-size: 1.8rem;
+            color: var(--gold);
+            opacity: 0.2;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            letter-spacing: 8px;
+            z-index: 1;
+        }
+        .left-brand { left: 20px; transform: rotate(180deg); }
+        .right-brand { right: 20px; }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(194, 168, 120, 0.12);
+            padding: 80px 50px;
+            border-radius: 2px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+            position: relative;
+            z-index: 10;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 1px solid rgba(194, 168, 120, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .quiz-title-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            color: var(--gold);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 45px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .quiz-step { display: none; }
+        .quiz-step.active { display: block; animation: fadeInBlur 1s ease forwards; }
+
+        @keyframes fadeInBlur {
+            from { opacity: 0; filter: blur(10px); transform: translateY(10px); }
+            to { opacity: 1; filter: blur(0); transform: translateY(0); }
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 24px 35px;
+            margin-bottom: 18px;
+            background: transparent;
+            border: 1px solid rgba(194, 168, 120, 0.15);
+            color: var(--cream);
+            cursor: pointer;
+            text-align: left;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .option-btn:hover {
+            background: rgba(194, 168, 120, 0.05);
+            border-color: var(--gold);
+            padding-left: 45px;
+        }
+
+        .archetype-name { font-family: 'Pinyon Script', cursive; font-size: 4.5rem; color: var(--gold); margin-bottom: 10px; line-height: 1; }
+        .archetype-subtitle { font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 6px; font-size: 1.1rem; margin-bottom: 40px; color: var(--gold); }
+
+        .insight-section {
+            background: rgba(194, 168, 120, 0.02);
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid rgba(194, 168, 120, 0.1);
+            text-align: left;
+        }
+
+        .section-label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .discount-container {
+            padding: 50px;
+            margin: 40px 0;
+            background: var(--gold);
+            color: var(--earth-deep);
+            text-align: center;
+        }
+
+        .action-btn {
+            background: var(--gold);
+            color: var(--earth-deep);
+            padding: 22px 50px;
+            border: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: 100%;
+            letter-spacing: 4px;
+            transition: var(--transition);
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 24px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: white;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .step-item { margin-bottom: 15px; }
+        .step-num { color: var(--gold); font-weight: 700; margin-right: 10px; }
+
+        @media (max-width: 900px) {
+            .vertical-brand { display: none; }
+            .container { padding: 40px 25px; width: 95%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="vertical-brand left-brand">SOVEREIGN SEER</div>
+<div class="vertical-brand right-brand">SOVEREIGN SEER</div>
+
+<div class="container">
+    <div class="quiz-header">
+        <span class="quiz-title-text">The Sovereign Archetypes Quiz</span>
+    </div>
+
+    <div id="quiz-flow">
+        <div class="quiz-step active" id="step1">
+            <h2>How do you primarily interact with the world around you?</h2>
+            <button class="option-btn" onclick="tally('Seer', 3); next(2)">I observe patterns and hidden truths that others miss.</button>
+            <button class="option-btn" onclick="tally('Caregiver', 3); next(2)">I focus on the goodness and safety of the environment.</button>
+            <button class="option-btn" onclick="tally('Hero', 3); next(2)">I take action to overcome challenges and prove my strength.</button>
+            <button class="option-btn" onclick="tally('Explorer', 3); next(2)">I seek new experiences and radical self-expression.</button>
+        </div>
+
+        <div class="quiz-step" id="step2">
+            <h2>What is your greatest internal resistance?</h2>
+            <button class="option-btn" onclick="tally('Seer', 3); next(3)">The frustration of being unheard or seeing the disaster before it happens.</button>
+            <button class="option-btn" onclick="tally('Sage', 3); next(3)">The fear of being misled, ignorant, or losing mental authority.</button>
+            <button class="option-btn" onclick="tally('Lover', 3); next(3)">The fear of being unwanted or living a life without connection.</button>
+            <button class="option-btn" onclick="tally('Ruler', 3); next(3)">The fear of chaos and losing the ability to provide structure.</button>
+        </div>
+
+        <div class="quiz-step" id="step3">
+            <h2>Which role do you naturally fall into within a group?</h2>
+            <button class="option-btn" onclick="tally('Seer', 3); next(4)">The Observer who sees the frequency behind the conversation.</button>
+            <button class="option-btn" onclick="tally('Magician', 3); next(4)">The Alchemist who transforms energy and manifests shifts.</button>
+            <button class="option-btn" onclick="tally('Everyman', 3); next(4)">The Anchor who keeps things relatable and grounded.</button>
+            <button class="option-btn" onclick="tally('Creator', 3); next(4)">The Visionary who imagines paths that don't yet exist.</button>
+        </div>
+
+        <div class="quiz-step" id="step-email">
+            <h2>Your Sacred Archetype is ready...</h2>
+            <p style="text-align: center; margin-bottom: 35px; opacity: 0.7; letter-spacing: 1px;">Enter your email to anchor your results and receive your custom Sovereign path.</p>
+            <input type="email" id="userEmail" placeholder="you@example.com">
+            <button class="action-btn" onclick="showResults()">Decode My Essence</button>
+        </div>
+
+        <div class="quiz-step" id="step-results">
+            <div id="resultsContent" class="result-card"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const scores = { Seer: 0, Sage: 0, Caregiver: 0, Hero: 0, Explorer: 0, Ruler: 0, Creator: 0, Magician: 0, Outlaw: 0, Lover: 0, Jester: 0, Everyman: 0, Innocent: 0 };
+
+    function tally(archetype, points) { scores[archetype] += points; }
+
+    function next(s) {
+        document.querySelectorAll('.quiz-step').forEach(el => el.classList.remove('active'));
+        const target = s === 4 ? 'step-email' : 'step' + s;
+        document.getElementById(target).classList.add('active');
+    }
+
+    function showResults() {
+        const email = document.getElementById('userEmail').value;
+        if(!email.includes('@')) { alert("Please provide a valid email."); return; }
+
+        let winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+        document.getElementById('step-email').classList.remove('active');
+        document.getElementById('step-results').classList.add('active');
+
+        const data = {
+            Seer: {
+                sub: "The Architect of Pattern Recognition",
+                desc: "You possess the 'Sovereign Sight.' You see the frequency behind the transaction and feel the 'Mental Fog' when others ignore the truth you clearly perceive. You aren't 'difficult'—you are simply accurate.",
+                insight: "Your accuracy is your authority. The 'Harmony Lie' is your greatest trap; you trade your sight for peace, but peace built on a lie is just a delay of chaos.",
+                steps: [
+                    "Practice 'Observation as Sovereignty'—watch a family or work dynamic for 20 minutes without intervening or fixing it. Just see the patterns.",
+                    "Audit your current relationships: where are you dimming your sight to fit in? Mark those as 'Frequency Leaks.'",
+                    "Trust your first hit. In your next decision, don't seek validation. Act on your initial pattern-recognition."
+                ],
+                isSeer: true
+            },
+            Sage: {
+                sub: "The Guardian of Truth",
+                desc: "You seek objective facts to feel safe. You have the knowledge, but you often get trapped in 'Analysis Paralysis,' gathering data while missing the underlying frequency of the moment.",
+                insight: "Knowing facts isn't the same as Seeing patterns. Your intellect is a tool, but your Sight is the power source. Stop using data to hide from your intuition.",
+                steps: [
+                    "Spend 24 hours in 'No Research' mode. When a question arises, sit with your own internal authority instead of Googling it.",
+                    "Identify one truth you 'know' but haven't 'seen' yet (the felt experience).",
+                    "Practice speaking your truth without providing five pieces of evidence to back it up. Let the truth stand on its own."
+                ],
+                isSeer: false
+            },
+            Caregiver: {
+                sub: "The Anchor of the Collective",
+                desc: "You are the nurturer, but you often fall into the 'Validation Trap.' You trade your Sovereignty to be needed, which results in deep, unexpressed resentment.",
+                insight: "Caring without Sovereignty is just self-sacrifice disguised as virtue. You cannot pour from a cup that is being drained by others' projections.",
+                steps: [
+                    "Say 'No' to one request this week without providing an explanation. Notice the urge to justify your boundary.",
+                    "Observe who in your life relies on your 'fix-it' energy to avoid their own growth.",
+                    "Spend 30 minutes in radical self-observation. What does your body need that you've been ignoring for the sake of 'Harmony'?"
+                ],
+                isSeer: false
+            },
+            Hero: {
+                sub: "The Warrior of Progress",
+                desc: "You are driven to win. But your 'Worth as a Transaction' means you only feel good when you're conquering. This keeps you in a state of 'Attack Projection.'",
+                insight: "The greatest battle is dismantling the distortions in your own sight, not fighting external enemies. True strength is Vulnerable Sovereignty.",
+                steps: [
+                    "Identify one area where you are 'fighting' reality instead of observing it. What happens if you stop the attack?",
+                    "Practice stillness. Spend 10 minutes a day just being, without an objective or a win-condition.",
+                    "Notice when you use your strength to cover up your vulnerability. Try the opposite once today."
+                ],
+                isSeer: false
+            }
+            // Add other archetypes logic here if needed...
+        };
+
+        const result = data[winner] || {
+            sub: "The Sovereign Voyager",
+            desc: "You are navigating a unique path between worlds. You feel the call to Sovereignty but are currently balanced between old distortions and new sight.",
+            insight: "Sovereignty is the clarity with which you view each moment. It is not a destination, but a frequency you tune into.",
+            steps: [
+                "Observe your current 'Mental Fog' without judgment. What is the one thing you are afraid to see clearly?",
+                "Identify where you are seeking external authority instead of trusting your own 'Inner Accuracy.'",
+                "Practice one act of radical self-honesty today, even if it feels uncomfortable."
+            ],
+            isSeer: false
+        };
+
+        let stepsHtml = result.steps.map((s, i) => `<div class="step-item"><span class="step-num">Step ${i+1}:</span> ${s}</div>`).join('');
+
+        let html = `
+            <div class="archetype-name">${winner}</div>
+            <div class="archetype-subtitle">${result.sub}</div>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">${result.desc}</p>
+            
+            <div class="insight-section">
+                <span class="section-label">The Sovereign Insight</span>
+                <p>${result.insight}</p>
+            </div>
+
+            <div style="text-align:left; margin-bottom:40px;">
+                <span class="section-label">Your Next Best Steps</span>
+                ${stepsHtml}
+            </div>
+        `;
+
+        if(result.isSeer) {
+            html += `
+                <div class="discount-container">
+                    <span class="section-label" style="color:var(--earth-deep)">Sovereign Recognition Activated</span>
+                    <p>Because your lens is clear, you are ready for the Sovereign System. Use code <b>THELENS</b> to join for $88.</p>
+                    <div style="font-size:2.8rem; margin:15px 0; font-family:serif; letter-spacing:8px;">THELENS</div>
+                    <button class="action-btn" style="background:var(--earth-deep); color:var(--gold);" onclick="location.href='#'">Enter Masterclass</button>
+                </div>
+            `;
+        } else {
+            html += `
+                <div class="insight-section" style="border: 1px solid rgba(194, 168, 120, 0.4);">
+                    <p style="font-style:italic; opacity:0.8; font-size: 0.95rem;">The Sovereign Seer masterclass is built for those who have integrated their sight. Complete the steps above to prepare your frequency for the deep dive.</p>
+                </div>
+            `;
+        }
+
+        html += `<div style="margin-top:60px; font-family:'Pinyon Script'; font-size:2rem; color:var(--gold);">Stay Sovereign.</div>`;
+        document.getElementById('resultsContent').innerHTML = html;
+    }
+</script>
+
+</body>
+</html>
