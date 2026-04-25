@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sovereign System | Archetype Assessment</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <style>
+        :root { --earth: #0d160f; --gold: #c2a878; --cream: #fefae0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--earth); color: var(--cream); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        .container { width: 92%; max-width: 700px; border: 1px solid rgba(194,168,120,0.2); padding: 60px 40px; background: rgba(255,255,255,0.01); backdrop-filter: blur(20px); position: relative; }
+        .quiz-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 6px; color: var(--gold); text-align: center; display: block; margin-bottom: 40px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 30px; text-align: center; font-weight: 400; line-height: 1.5; color: var(--gold); }
+        .quiz-step { display: none; }
+        .quiz-step.active { display: block; animation: fadeIn 0.5s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .option-btn { display: block; width: 100%; padding: 18px 25px; margin-bottom: 12px; background: transparent; border: 1px solid rgba(194, 168, 120, 0.3); color: var(--cream); cursor: pointer; text-align: left; font-size: 0.95rem; transition: 0.3s; line-height: 1.4; }
+        .option-btn:hover { background: rgba(194, 168, 120, 0.1); border-color: var(--gold); }
+        input[type="email"] { width: 100%; padding: 20px; background: transparent; border: 1px solid var(--gold); color: white; margin-bottom: 25px; text-align: center; font-size: 1.1rem; border-radius: 0; }
+        .action-btn { background: var(--gold); color: var(--earth); padding: 20px; border: none; font-weight: 700; text-transform: uppercase; cursor: pointer; width: 100%; letter-spacing: 3px; font-size: 1rem; }
+        .progress { text-align: center; font-size: 0.7rem; letter-spacing: 2px; margin-top: 25px; opacity: 0.4; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <span class="quiz-title">Archetype Assessment</span>
+    <div id="quiz-container">
+        
+        <div class="quiz-step active" id="step1">
+            <h2>When you spot a hidden dynamic in a room, how do you respond?</h2>
+            <button type="button" class="option-btn" onclick="moveForward('seer')">I see it instantly, but I keep quiet to avoid being targeted.</button>
+            <button type="button" class="option-btn" onclick="moveForward('caregiver')">I sugar-coat it to keep the peace for everyone else.</button>
+            <button type="button" class="option-btn" onclick="moveForward('sage')">I look for data to prove my intuition isn't "crazy."</button>
+            <button type="button" class="option-btn" onclick="moveForward('outlaw')">I call it out immediately, regardless of the tension.</button>
+            <p class="progress">Step 1 / 5</p>
+        </div>
+
+        <div class="quiz-step" id="step2">
+            <h2>How do you measure your value?</h2>
+            <button type="button" class="option-btn" onclick="moveForward('caregiver')">By how much I've helped or "fixed" for others.</button>
+            <button type="button" class="option-btn" onclick="moveForward('outlaw')">By how much I've challenged broken systems.</button>
+            <button type="button" class="option-btn" onclick="moveForward('seer')">By the accuracy of my internal observations.</button>
+            <button type="button" class="option-btn" onclick="moveForward('sage')">By how much I've learned or understood objectively.</button>
+            <p class="progress">Step 2 / 5</p>
+        </div>
+
+        <div class="quiz-step" id="step3">
+            <h2>A "gut hit" occurs about a major choice. You:</h2>
+            <button type="button" class="option-btn" onclick="moveForward('sage')">Research to see if experts agree with my hit.</button>
+            <button type="button" class="option-btn" onclick="moveForward('caregiver')">Ask others for their opinion before deciding.</button>
+            <button type="button" class="option-btn" onclick="moveForward('seer')">Know I'm right, but hesitate to speak it.</button>
+            <button type="button" class="option-btn" onclick="moveForward('outlaw')">Act on it quickly to maintain my independence.</button>
+            <p class="progress">Step 3 / 5</p>
+        </div>
+
+        <div class="quiz-step" id="step4">
+            <h2>When you feel "stuck," what is the usual cause?</h2>
+            <button type="button" class="option-btn" onclick="moveForward('seer')">Being targeted by others' projections and shadows.</button>
+            <button type="button" class="option-btn" onclick="moveForward('caregiver')">Over-extending to keep the "Harmony Lie" alive.</button>
+            <button type="button" class="option-btn" onclick="moveForward('sage')">Trapped in over-analysis and the "Validation Trap."</button>
+            <button type="button" class="option-btn" onclick="moveForward('outlaw')">The exhaustion of fighting a system that won't change.</button>
+            <p class="progress">Step 4 / 5</p>
+        </div>
+
+        <div class="quiz-step" id="step5">
+            <h2>"Inner Authority" means:</h2>
+            <button type="button" class="option-btn" onclick="moveForward('seer')">Witnessing truth without feeling like a victim.</button>
+            <button type="button" class="option-btn" onclick="moveForward('sage')">Having total clarity over the mechanics of life.</button>
+            <button type="button" class="option-btn" onclick="moveForward('caregiver')">Stopping the "fixing" and just existing in peace.</button>
+            <button type="button" class="option-btn" onclick="moveForward('outlaw')">Building my own system without interference.</button>
+            <p class="progress">Step 5 / 5</p>
+        </div>
+
+        <div class="quiz-step" id="step_email">
+            <h2>Where should we send your Sovereign Roadmap?</h2>
+            <input type="email" id="userEmail" placeholder="yourname@email.com">
+            <button type="button" class="action-btn" id="submitBtn" onclick="finalProcess()">Reveal My Archetype</button>
+        </div>
+
+        <div class="quiz-step" id="results">
+            <div id="res_content" style="text-align:center;">
+                <div class="result-header" id="res_name"></div>
+                <div class="insight-box" id="res_insight"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function(){ emailjs.init("Mh_ZFUHh-VQRtdPpT"); })();
+
+    let scores = { seer: 0, caregiver: 0, sage: 0, outlaw: 0 };
+    let currentStep = 1;
+
+    window.moveForward = function(archetype) {
+        scores[archetype]++;
+        document.getElementById('step' + currentStep).classList.remove('active');
+        currentStep++;
+        if(currentStep <= 5) {
+            document.getElementById('step' + currentStep).classList.add('active');
+        } else {
+            document.getElementById('step_email').classList.add('active');
+        }
+    };
+
+    const library = {
+        seer: {
+            name: "The Seer",
+            insight: "You notice the shadow in the room before anyone else. This accuracy is your proprietary asset, yet you've likely been labeled 'dramatic' because your sight threatens those who aren't ready to face themselves.",
+            step: "Stop casting pearls. Your 'hits' are valuable data. Practice 'Witnessing without Warning' to protect your frequency."
+        },
+        caregiver: {
+            name: "The Caregiver",
+            insight: "You find safety in being indispensable. This is the Harmony Lie in action—trading your own truth for a false sense of collective peace. You are processing others' emotional data instead of your own.",
+            step: "For 48 hours, witness a problem and do not offer a solution. Re-calibrate your worth as a frequency, not a service."
+        },
+        sage: {
+            name: "The Sage",
+            insight: "You seek truth as a defense, falling into the Validation Trap. You believe that if you have enough data, you will finally be safe. This intellectualizes your 'Sight' and weakens your raw Inner Authority.",
+            step: "For the next three days, do not Google your intuitions. Sit with your 'hits' in silence until they become solid facts in your own body."
+        },
+        outlaw: {
+            name: "The Outlaw",
+            insight: "Your rebellion is a reaction to being unheard, keeping you tethered to the Victim Label. You are letting others dictate your frequency by reacting against their systems.",
+            step: "Stop fighting their distortions and start building your own. Shift from 'rebellion' to 'Sovereign System creation.'"
+        }
+    };
+
+    window.finalProcess = function() {
+        const email = document.getElementById('userEmail').value;
+        if(!email.includes('@')) { alert("Please provide a valid email."); return; }
+
+        let winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+        let data = library[winner];
+
+        document.getElementById('submitBtn').innerText = "Tuning Frequency...";
+
+        emailjs.send("service_0djjn9q", "template_mehd9na", {
+            to_email: email,
+            archetype_name: data.name,
+            archetype_insight: data.insight,
+            archetype_step: data.step,
+            reply_to: "thewellnessforest@gmail.com"
+        }).then(() => {
+            document.getElementById('step_email').classList.remove('active');
+            document.getElementById('results').classList.add('active');
+            document.getElementById('res_name').innerText = data.name;
+            document.getElementById('res_insight').innerHTML = `<p>${data.insight}</p><br><strong>Next Sovereign Step:</strong><p>${data.step}</p>`;
+        });
+    };
+</script>
+</body>
+</html>
