@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sovereign System | Archetype Assessment</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <style>
+        :root { --earth: #0d160f; --gold: #c2a878; --cream: #fefae0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--earth); color: var(--cream); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        .container { width: 92%; max-width: 800px; border: 1px solid rgba(194,168,120,0.2); padding: 60px 40px; background: rgba(255,255,255,0.01); backdrop-filter: blur(20px); position: relative; }
+        .quiz-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 6px; color: var(--gold); text-align: center; display: block; margin-bottom: 40px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 30px; text-align: center; font-weight: 400; line-height: 1.4; }
+        .quiz-step { display: none; }
+        .quiz-step.active { display: block; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .option-btn { display: block; width: 100%; padding: 20px; margin-bottom: 12px; background: transparent; border: 1px solid rgba(194, 168, 120, 0.3); color: var(--cream); cursor: pointer; text-align: left; font-size: 0.95rem; transition: 0.3s; }
+        .option-btn:hover { background: rgba(194, 168, 120, 0.08); border-color: var(--gold); }
+        input[type="email"] { width: 100%; padding: 20px; background: transparent; border: 1px solid var(--gold); color: white; margin-bottom: 25px; text-align: center; font-size: 1.1rem; }
+        .action-btn { background: var(--gold); color: var(--earth); padding: 20px; border: none; font-weight: 700; text-transform: uppercase; cursor: pointer; width: 100%; letter-spacing: 3px; }
+        .result-header { font-family: 'Pinyon Script', cursive; font-size: 3rem; color: var(--gold); text-align: center; }
+        .insight-box { margin-top: 30px; border-top: 1px solid var(--gold); padding-top: 20px; line-height: 1.8; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <span class="quiz-title">Archetype Assessment</span>
+    <div id="quiz-container">
+        <div class="quiz-step active" id="step1">
+            <h2>Which describes your primary role in a group?</h2>
+            <button class="option-btn" onclick="setArchetype('The Seer')">The one who sees the underlying pattern before anyone else.</button>
+            <button class="option-btn" onclick="setArchetype('The Caregiver')">The one who ensures everyone is emotionally safe.</button>
+            <button class="option-btn" onclick="setArchetype('The Sage')">The one who gathers data and looks for the objective truth.</button>
+            <button class="option-btn" onclick="setArchetype('The Outlaw')">The one who challenges the status quo and breaks rules.</button>
+            <button class="option-btn" onclick="setArchetype('The Magician')">The one who transforms the energy and creates change.</button>
+            <button class="option-btn" onclick="setArchetype('The Hero')">The one who fights to protect and overcome obstacles.</button>
+        </div>
+
+        <div class="quiz-step" id="step_email">
+            <h2>Where should we send your Archetype Dossier?</h2>
+            <input type="email" id="userEmail" placeholder="yourname@email.com">
+            <button class="action-btn" id="submitBtn" onclick="sendDossier()">Request Final Analysis</button>
+        </div>
+
+        <div class="quiz-step" id="results">
+            <div class="result-header" id="res_name"></div>
+            <div class="insight-box" id="res_insight"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function(){ emailjs.init("Mh_ZFUHh-VQRtdPpT"); })();
+
+    let selectedArchetype = "";
+
+    const archetypes = {
+        "The Seer": {
+            insight: "This is your proprietary lens. You see through the Attack Projection—you notice the shadow in the room before anyone else. Historically, you've been labeled 'dramatic' because your accuracy threatens those who aren't ready to face themselves. You are currently stuck trying to explain your sight to people who benefit from being blind.",
+            step: "1. Pearl Conservation: Stop explaining your 'hits' for free. 2. Sovereign Observation: Practice 'Witnessing without Warning'—anchor your own frequency so their projection cannot stick to you."
+        },
+        "The Caregiver": {
+            insight: "You find safety in being indispensable. You have spent a lifetime over-functioning to avoid the discomfort of other people's chaos. This is a manifestation of the Harmony Lie—trading your frequency for a false sense of peace. You are processing other people’s data instead of your own.",
+            step: "1. Radical Non-Interference: For 48 hours, witness a problem and do not offer a solution. 2. Worth Decoupling: Practice sitting in silence for 20 minutes without 'doing' for anyone else."
+        },
+        "The Sage": {
+            insight: "You seek truth as a defense mechanism, believing that if you just have enough data, you will be safe. This leads to the Validation Trap: you have a gut knowing, but you immediately go to 'experts' or books to prove you aren't wrong. This intellectualizes your 'Sight' and weakens your Inner Accuracy.",
+            step: "1. Information Fast: For the next three days, do not Google your intuitions. 2. Embodied Sight: Instead of analyzing a pattern, feel where it lives in your physical body."
+        },
+        "The Outlaw": {
+            insight: "Your rebellion is a reaction to being unheard. You think breaking rules is power, but it's often a dance with the Victim Label. You are letting others dictate your frequency by reacting against them. True sovereignty isn't rebellion; it's total independence from the collective's needs.",
+            step: "1. Non-Reactive Observation: When someone tries to control you, do not react. Simply witness their need for control. 2. Independent Authority: Build your system rather than tearing down theirs."
+        },
+        "The Hero": {
+            insight: "You identify with the struggle. You believe that to be Sovereign, you must fight for it. This keeps you trapped in the Attack Projection because you are always looking for a dragon to slay. Your Sight is your greatest asset, and it requires zero effort to use—you don't have to battle to be right.",
+            step: "1. Putting Down the Sword: When you feel the urge to 'defend' yourself, pause and breathe. 2. Effortless Accuracy: Practice seeing a pattern and doing absolutely nothing about it."
+        },
+        "The Magician": {
+            insight: "You understand transformation but fall into the Validation Trap by trying to 'manifest' away a distortion before you've fully observed it. You are trying to skip the 'Seeing' phase. This spiritual bypass keeps you tethered to the patterns you are trying to escape.",
+            step: "1. Witnessing the Void: When you see a problem, do not try to 'shift the energy.' Just sit with it. 2. Grounded Magic: Accept the radical truth of the distortion before you attempt to change it."
+        }
+        // Additional archetypes follow this same structure...
+    };
+
+    function setArchetype(name) {
+        selectedArchetype = name;
+        document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step_email').classList.add('active');
+    }
+
+    function sendDossier() {
+        const email = document.getElementById('userEmail').value;
+        if(!email.includes('@')) { alert("Please provide a valid email."); return; }
+        
+        const data = archetypes[selectedArchetype];
+        document.getElementById('submitBtn').innerText = "Analyzing Frequency...";
+
+        emailjs.send("service_0djjn9q", "template_mehd9na", {
+            to_email: email,
+            archetype_name: selectedArchetype,
+            archetype_insight: data.insight,
+            archetype_step: data.step,
+            reply_to: "thewellnessforest@gmail.com"
+        }).then(() => {
+            document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+            document.getElementById('results').classList.add('active');
+            document.getElementById('res_name').innerText = selectedArchetype;
+            document.getElementById('res_insight').innerHTML = `<p>${data.insight}</p><br><strong>The Sovereign Roadmap:</strong><p>${data.step}</p>`;
+        });
+    }
+</script>
+</body>
+</html>
