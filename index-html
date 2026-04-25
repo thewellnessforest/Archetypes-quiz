@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Seer | The Universal Archetype Assessment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --earth-deep: #0f1a13;
+            --forest: #1b2e21;
+            --moss: #3a5a40;
+            --gold: #c2a878;
+            --cream: #fefae0;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--earth-deep);
+            color: var(--cream);
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(58, 90, 64, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(194, 168, 120, 0.1) 0%, transparent 50%);
+        }
+
+        .container {
+            width: 95%;
+            max-width: 850px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(194, 168, 120, 0.15);
+            padding: 60px 40px;
+            border-radius: 40px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand-logo {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 2.8rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 35px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .quiz-step { display: none; }
+        .quiz-step.active { display: block; animation: slideIn 0.8s ease forwards; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 20px 30px;
+            margin
+            
